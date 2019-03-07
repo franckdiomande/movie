@@ -37,8 +37,36 @@
         "genre": ["Action", "Adventure", "Science Fiction", "Fantasy"],
         "directors": ["Anna Boden", "Ryan Fleck"],
         "writers": ["Anna Boden", "Ryan Fleck", "Geneva Robertson-Dworet"],
-        "actors": ["Brie Larson","Samuel L. Jackson","Ben Mendelsohn","Djimon Hounsou  ","Lee Pace ","Lashana Lynch","Gemma Chan","Annette Bening ","Clark Gregg","Jude Law ","Algenis Perez Soto ","Rune Temte ","McKenna Grace ","Vik Sahay ","Ana Ayora  ","Colin Ford ","Kenneth Mitchell"],
+        "actors": ["Brie Larson","Samuel L. Jackson","Ben Mendelsohn","Djimon Hounsou ","Lee Pace ","Lashana Lynch","Gemma Chan","Annette Bening ","Clark Gregg","Jude Law ","Algenis Perez Soto ","Rune Temte ","McKenna Grace ","Vik Sahay ","Ana Ayora  ","Colin Ford ","Kenneth Mitchell"],
         "poster": "https://resizing.flixster.com/JLLaCatmCKEaK2Y-EGpDw8ocGms=/fit-in/200x296.2962962962963/v1.bTsxMjkyNjcxNjtqOzE4MDE0OzEyMDA7MTY4ODsyNTAw",
+        "type": "Movie"
+    },
+    {
+        "name": "BROOKLYN NINE-NINE",
+        "slug": "brooklyn-nine-nine",
+        "summary": "Jake Peralta, an immature, but talented N.Y.P.D. detective in Brooklyn's 99th Precinct, comes into immediate conflict with his new commanding officer, the serious and stern Captain Ray Holt.",
+        "rated": "G",
+        "release": "2013-09-17T00:00:00.000+00:00",
+        "duration": 22,
+        "genre": ["Comedy", "Crime"],
+        "directors": ["Dan Goor", "David Miner (II)", "Michael Schur", "Luke Del Tredici"],
+        "writers": [],
+        "actors": ["Andre Braugher","Andy Samberg","Terry Crews","Melissa Fumero","Joe Lo Truglio","Stephanie Beatriz","Chelsea Peretti","Dirk Blocker","Joel McKinnon Miller"],
+        "poster": "https://resizing.flixster.com/_d3CpftyAFAI6YxJZuZKgLBcICE=/206x305/v1.dDs0MDc5NzQ7ajsxNzk4ODsxMjAwOzE2MDA7MjQwMA",
+        "type": "Show"
+    },
+    {
+        "name": "HOW TO TRAIN YOUR DRAGON: THE HIDDEN WORLD",
+        "slug": "how-to-train-your-dragon-the-hidden-world",
+        "summary": "Now chief and ruler of Berk alongside Astrid, Hiccup has created a gloriously chaotic dragon utopia. When the sudden appearance of female Light Fury coincides with the darkest threat their village has ever faced, Hiccup and Toothless must leave the only home they've known and journey to a hidden world thought only to exist in myth. As their true destines are revealed, dragon and rider will fight together-to the very ends of the Earth-to protect everything they've grown to treasure.",
+        "rated": "PG",
+        "release": "2018-02-22T00:00:00.000+00:00",
+        "duration": 110,
+        "genre": ["Action","Adventure","Animation","Kids","Family"],
+        "directors": ["Dean DeBlois"],
+        "writers": ["Dean DeBlois"],
+        "actors": ["Jay Baruchel","America Ferrera","Cate Blanchett","Kit Harington","Craig Ferguson","F. Murray Abraham","Gerard Butler","Jonah Hill","Christopher Mintz-Plasse","Kristen Wiig"],
+        "poster": "https://resizing.flixster.com/2rjfKdM3bfAmNe9Rh_XQn9SOVSg=/fit-in/200x296.2962962962963/v1.bTsxMjc1NjU5NztqOzE4MDEyOzEyMDA7NDgwOzc2MA",
         "type": "Movie"
     }
 ]
