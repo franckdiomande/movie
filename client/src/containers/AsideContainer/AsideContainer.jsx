@@ -5,8 +5,6 @@ import FilterComponent from "../../components/FilterComponent/FilterComponent.js
 
 export default class AsideContainer extends React.Component {
     render() {
-        console.log("pute");
-        console.log(this.props);
         return (
             <div className={"_box"} id={"aside-container"}>
                 <Switch>
