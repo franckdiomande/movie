@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
-import moviesReducer from './moviesReducer';
 import activeMovie from './activeMovieReducer'
+import moviesReducer from "./getMoviesReducer";
 
 const rootReducers = combineReducers({
     movies: moviesReducer,

@@ -8,15 +8,14 @@ import './styles/base.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createLogger } from "redux-logger";
-
-import Api from './Api.js';
+import thunk from "redux-thunk";
 
 const composeE = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
     rootReducer,
     {},
-    composeE(applyMiddleware(createLogger()))
+    composeE(applyMiddleware(createLogger(), thunk)),
 );
 
 ReactDOM.render(

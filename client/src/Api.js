@@ -26,12 +26,11 @@ class Api {
         let RequestBody = JSON.stringify(this.params.body);
 
         fetch(url, Object.assign({}, this.params, {body: RequestBody})).then((response) => {
-            console.log(response);
             response.json().then((data)=>{
                 return callback(data)
             });
         }).catch((error) => {
-            console.log(error);
+
         })
     }
 
@@ -66,9 +65,9 @@ class Api {
         });
     }
 
-    getMovies(username, password, callback){
+    getMovies(callback){
 
-        this.getToken(username, password, (token)=>{
+        this.getToken((token)=>{
             this.params.headers.append('Authorization', token);
             return this.get('http://localhost:9080/movies', (data)=>{
                 callback(data);
