@@ -18,6 +18,23 @@ class Api {
         };
     }
 
+    login(username, password){
+        return new Promise((resolve, reject) => {
+            this.post('http://localhost/login_check', {
+            'username': username,
+            'password': password
+        }, (data)=>{
+            if(data['token']){
+                let token = data.token;
+                window.localStorage.setItem('token', 'Bearer ' + token);
+                resolve(true);
+            } else {
+                reject(false);
+            }
+        });
+        })
+    }
+
     post(url, body = {}, callback) {
 
         this.params.method = 'POST';
@@ -26,6 +43,7 @@ class Api {
         let RequestBody = JSON.stringify(this.params.body);
 
         fetch(url, Object.assign({}, this.params, {body: RequestBody})).then((response) => {
+
             response.json().then((data)=>{
                 return callback(data)
             });
@@ -50,26 +68,20 @@ class Api {
         })
     }
 
-    getToken(username, password, callback){
+    getToken(callback){
         let token = window.localStorage.getItem('token');
         if (token) {
             return callback(token);
+        } else {
+            return false;
         }
-        return this.post('http://localhost:9080/login_check', {
-            'username': username,
-            'password': password
-        }, (data)=>{
-            let token = data.token;
-            window.localStorage.setItem('token', 'Bearer ' + token);
-            callback(token);
-        });
     }
 
     getMovies(callback){
 
         this.getToken((token)=>{
             this.params.headers.append('Authorization', token);
-            return this.get('http://localhost:9080/movies', (data)=>{
+            return this.get('http://localhost/movies', (data)=>{
                 callback(data);
             });
         })
