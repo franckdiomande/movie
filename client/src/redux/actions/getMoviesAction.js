@@ -17,7 +17,7 @@ export function getMovies() {
         //     return data;
         // });
 
-        return fetch('http://localhost:9080/movies', {
+        return fetch(process.env.REACT_APP_API_BASE_URL + '/movies', {
             method: 'GET',
             headers: headers,
             mode: 'cors',
@@ -37,7 +37,7 @@ export function getMovies() {
                 return dispatch(fetchMoviesFailure(error))
             });
 
-        // return fetch('http://localhost:9080/movies')
+        // return fetchprocess.env.REACT_APP_API_BASE_URL + '/movies')
         //     .then(handleErrors)
         //     .then(res => res.json())
         //     .then(json => {
