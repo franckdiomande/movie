@@ -1,3 +1,28 @@
-#movie-details-container {
+@import "../../styles/variables";
 
+#movie-details-container {
+    h4 {  
+        margin-bottom: 5px;
+    }
+
+    .title {
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .summary {
+        margin-top: 15px;
+        margin-bottom: 15px
+    }
+
+    .pill {
+        display: inline-block;
+        background-color: $color-secondary;
+        border-radius: 25px;
+        padding: 5px 10px;
+        color: white;
+        font-weight: bold;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
 }

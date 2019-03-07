@@ -59,7 +59,6 @@ function mapDispatchToProps(dispatch) {
     return {
         getMovies: ()=>dispatch(getMovies()),
         selectMovie: (movie)=>dispatch(selectMovie(movie)),
-
     }
 }
 
