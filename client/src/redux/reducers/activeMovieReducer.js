@@ -1,6 +1,6 @@
 import { MOVIE_SELECTED } from "../actions";
 
-const activeMovie = (state = null, action)=>{
+const activeMovie = (state = {}, action)=>{
     switch (action.type) {
         case MOVIE_SELECTED:
             return {

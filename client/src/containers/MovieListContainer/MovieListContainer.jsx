@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 import {selectMovie} from "../../redux/actions";
 import './movie-list-container.scss';
 import MovieCardComponent from "../../components/MovieCardComponent/MovieCardComponent.jsx";
+import {withRouter} from "react-router";
 
 class MovieListContainer extends React.Component {
     render() {
@@ -13,7 +13,7 @@ class MovieListContainer extends React.Component {
                     this.props.movies.map((movie, key) => {
                         return (
                             <div className={'_box'} key={key}>
-                                <MovieCardComponent movie={movie} key={key} onClick={()=>{selectMovie(movie)}}/>
+                                <MovieCardComponent movie={movie} onClick={()=>{this.props.selectMovie(movie); this.props.history.push('/details')}}/>
                             </div>
                         )
                     })
@@ -30,7 +30,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    bindActionCreators({activeMovie: selectMovie}, dispatch);
+    return {
+        selectMovie: (movie)=>dispatch(selectMovie(movie))
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MovieListContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MovieListContainer));

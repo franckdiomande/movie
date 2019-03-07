@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from "react-router-dom";
 import HeaderContainer from "../HeaderContainer/HeaderContainer.jsx";
-import FilterContainer from "../FilterContainer/FilterContainer.jsx";
 import DisplayContainer from "../DisplayContainer/DisplayContainer.jsx";
+import AsideContainer from "../AsideContainer/AsideContainer.jsx";
 
 class MainContainer extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class MainContainer extends React.Component {
       <div id={'main-container'}>
         <HeaderContainer/>
         <div className={'_container _container-2 _no-wrap'} id={'content'}>
-          <FilterContainer/>
+          <AsideContainer/>
           <DisplayContainer/>
         </div>
       </div>

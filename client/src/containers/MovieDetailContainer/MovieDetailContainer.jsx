@@ -8,7 +8,7 @@ class MovieDetailContainer extends React.Component {
         const {activeMovie} = this.props;
         return (
             <div className={'_container _container-4'} id={'movie-details-container'}>
-                { activeMovie.name }
+                { activeMovie ? activeMovie.name : 'loading...' }
             </div>
         )
     }
@@ -16,7 +16,7 @@ class MovieDetailContainer extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        activeMovie: state.activeMovie
+        activeMovie: state.activeMovie.activeMovie
     }
 }
 

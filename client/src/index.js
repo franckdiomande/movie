@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from "react-router-dom";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers/index";
 import './styles/base.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createLogger } from "redux-logger";
+
+import Api from './Api.js';
+
+const composeE = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-    rootReducer
+    rootReducer,
+    {},
+    composeE(applyMiddleware(createLogger()))
 );
 
 ReactDOM.render(

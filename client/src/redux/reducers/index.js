@@ -4,7 +4,7 @@ import activeMovie from './activeMovieReducer'
 
 const rootReducers = combineReducers({
     movies: moviesReducer,
-    activeMovie: activeMovie
+    activeMovie
 });
 
 export default rootReducers;
