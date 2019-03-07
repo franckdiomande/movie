@@ -1,0 +1,22 @@
+#main-container {
+
+  padding-top: 80px;
+
+  min-height: 100vh;
+
+  #filter-content {
+    width: 400px;
+    height: calc(100vh - 80px);
+    padding: 15px;
+    background-color: green;
+  }
+
+  #display-content {
+    width: 100%;
+    min-height: 100%;
+    padding: 15px;
+  }
+
+
+
+}

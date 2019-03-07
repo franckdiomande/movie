@@ -1,0 +1,61 @@
+// Variables
+$color-primary: #30287E;
+$color-secondary: #FFFFFF;
+$color-inactive: #BCC8DE;
+$transition-time: 0.3s;
+
+.skyflow-radio-container {
+
+  position: relative;
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  input[type='radio'] + span.skyflow-radio-mark {
+
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border: 2px solid $color-inactive;
+    vertical-align: middle;
+    background-color: $color-secondary;
+    position: relative;
+    border-radius: 50%;
+    transition: all $transition-time;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 0;
+      width: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border-radius: 50%;
+      transition: all $transition-time;
+    }
+
+  }
+
+  input[type='radio']:checked + span.skyflow-radio-mark {
+    border-color: $color-primary;
+    &:before {
+      height: 10px;
+      width: 10px;
+      background-color: $color-primary;
+    }
+  }
+
+  .skyflow-radio-label {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+}

@@ -1,0 +1,42 @@
+@import "variables";
+
+@mixin box-shadow2(){
+  -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.14), 0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 0px 0px 0px rgba(0, 0, 0, 0.2);
+}
+
+@mixin input-shadow(){
+  box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.14), 1px 3px 5px 1px rgba(0, 0, 0, 0.12), 1px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+@mixin shadow(){
+  box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.14), 1px 3px 5px 1px rgba(0, 0, 0, 0.12), 1px 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+@mixin card-shadow(){
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+}
+
+@mixin border-radius($top: 50px, $right: 50px, $bottom: 50px, $left: 50px) {
+  -webkit-border-radius: $top $right $bottom $left;
+  -moz-border-radius: $top $right $bottom $left;
+  -ms-border-radius: $top $right $bottom $left;
+  border-radius: $top $right $bottom $left;
+}
+
+@mixin transition($property, $time: $transition-time){
+  -webkit-transition: $property $time;
+  -moz-transition: $property $time;
+  -ms-transition: $property $time;
+  -o-transition: $property $time;
+  transition: $property $time;
+}
+
+@mixin rotate($deg: $rotation-deg) {
+  -webkit-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -ms-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+}

@@ -1,0 +1,55 @@
+// Variables
+$color-primary: #30287E;
+$color-secondary: #FFFFFF;
+$color-inactive: #BCC8DE;
+$transition-time: 0.3s;
+
+.skyflow-switch-container {
+
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  input[type='checkbox'] + span.skyflow-switch-mark {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    border: 2px solid $color-inactive;
+    background-color: $color-secondary;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all $transition-time;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-color: $color-inactive;
+      border-radius: 50%;
+      transition: all $transition-time;
+    }
+
+  }
+
+  input[type='checkbox']:checked + span.skyflow-switch-mark {
+    border-color: $color-primary;
+    &:before {
+      background-color: $color-primary;
+      left: 27px;
+    }
+  }
+
+}

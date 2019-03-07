@@ -1,0 +1,31 @@
+#filter-component {
+  width: 100%;
+  div.item {
+    margin-bottom: 80px;
+    label {
+      display: block;
+      width: 100%;
+      position: relative;
+      span {
+        font-size: 20px;
+        font-weight: bolder;
+        display: block;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .reset-filter {
+
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+  }
+
+}

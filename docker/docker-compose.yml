@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+
+# ------> mongo ------>
+    mongo_sktwilwkjsu8gxnb:
+        container_name: mongo_sktwilwkjsu8gxnb
+        image: mongo:latest
+        restart: 'on-failure'
+        #        environment:
+        #            MONGODB_USER: movie
+        #            MONGODB_PASS: movie
+        #            MONGODB_DATABASE: movie
+        ports:
+            - 27017:27017
+        volumes:
+            - ../api/database/movie:/data/db
+# <------ mongo <------
+
+# ------> node ------>
+    node_sktwilwkjsu8gxnc:
+        container_name: node_sktwilwkjsu8gxnc
+        build: ./node
+        image: skyflow/node
+        restart: 'on-failure'
+        volumes:
+            - ../api:/node
+        ports:
+            - 9080:80
+        environment:
+            - MONGODB_USER=
+            - MONGODB_PASS=
+            - MONGODB_DATABASE=movie
+            - MONGO_HOST=mongo_sktwilwkjsu8gxnb:27017
+            - JWT_SECRET="377A4279A7A19DC6DBEA21F3FADA5"
+# <------ node <------

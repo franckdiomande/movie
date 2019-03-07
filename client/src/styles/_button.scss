@@ -1,0 +1,300 @@
+@import 'variables';
+@import 'mixins';
+
+._movie-button-widget,
+._movie-button-active-widget,
+._movie-button-inactive-widget,
+._movie-button-error-widget,
+._movie-button-success-widget,
+._movie-button-warning-widget,
+._movie-button-info-widget
+{
+  color: $color-primary;
+  font-size: 16px;
+  background-color: $color-white;
+  font-family: "Montserrat Bold", sans-serif;
+  padding: 8px 15px;
+  display: inline-block;
+  min-width: 200px;
+  border: 2px solid $color-primary;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  @include border-radius;
+  @include transition(all);
+
+  &:hover {
+    color: $color-white;
+    background-color: darken($color-primary, 10%);
+    border: 2px solid $color-white;
+  }
+
+}
+
+._movie-button-active-widget,
+._movie-button-inactive-widget,
+._movie-button-error-widget,
+._movie-button-success-widget,
+._movie-button-warning-widget,
+._movie-button-info-widget
+{
+  color: $color-white;
+  background-color: $color-primary;
+  border: 2px solid $color-white;
+  @include input-shadow;
+}
+
+._movie-button-inactive-widget {
+  color: $color-white;
+  background-color: $color-inactive;
+}
+
+._movie-button-success-widget {
+  color: $color-white;
+  background-color: $color-success;
+  &:hover {
+    background-color: darken($color-success, 10%);
+  }
+}
+
+._movie-button-warning-widget {
+  color: $color-white;
+  background-color: $color-warning;
+  &:hover {
+    background-color: darken($color-warning, 10%);
+  }
+}
+
+._movie-button-info-widget {
+  color: $color-white;
+  background-color: $color-info;
+  &:hover {
+    background-color: darken($color-info, 10%);
+  }
+}
+
+._movie-button-error-widget {
+  color: $color-white;
+  background-color: $color-error;
+  &:hover {
+    background-color: darken($color-error, 10%);
+  }
+}
+
+._movie-button-icon-widget {
+
+  height: 40px;
+  display: inline-block;
+  position: relative;
+  min-width: 200px;
+  border: 2px solid $color-primary;
+  background-color: $color-white;
+  text-transform: uppercase;
+  @include border-radius;
+  @include transition(all);
+
+  ._movie-button-widget {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+  }
+
+  i {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 30px;
+    color: $color-primary;
+    z-index: 0;
+    @include transition(all);
+  }
+
+  &:hover {
+    border: 2px solid $color-white;
+    background-color: $color-hover;
+    i {
+      color: $color-white;
+    }
+  }
+
+}
+
+._movie-button-checkbox-widget, ._movie-button-radio-widget {
+
+  position: relative;
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  input[type='checkbox'], input[type='radio'] {
+    display: none;
+  }
+
+  input[type='checkbox'] + span, input[type='radio'] + span {
+
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-border;
+    vertical-align: middle;
+    background-color: $color-white;
+    position: relative;
+    @include transition(all);
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 0;
+      width: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: $color-primary;
+      @include transition(all);
+    }
+
+  }
+
+  input[type='checkbox']:checked + span, input[type='radio']:checked + span {
+    border: 2px solid $color-primary;
+    &:before {
+      height: 12px;
+      width: 12px;
+    }
+  }
+
+  &:hover {
+    input[type='checkbox'] + span, input[type='radio'] + span {
+      border: 2px solid $color-hover;
+    }
+  }
+
+}
+
+._movie-button-radio-widget {
+  input[type='radio'] + span {
+    @include border-radius();
+    &:before {
+      @include border-radius();
+    }
+  }
+}
+
+._movie-button-switch-widget {
+
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  input[type='checkbox'] + span {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border: 2px solid $color-border;
+    background-color: $color-white;
+    cursor: pointer;
+    @include border-radius();
+    @include transition(all);
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      background-color: $color-inactive;
+      @include border-radius();
+      @include transition(all);
+    }
+
+  }
+
+  input[type='checkbox']:checked + span {
+    border: 2px solid $color-primary;
+    &:before {
+      background-color: $color-primary;
+      left: 27px;
+    }
+  }
+
+  input[type='checkbox'] + span:hover {
+    border: 2px solid $color-hover;
+    &:before {
+      background-color: $color-hover;
+    }
+  }
+
+}
+
+._movie-button-circle-widget {
+
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  border: 2px solid $color-primary;
+  @include border-radius;
+  text-align: center;
+  color: $color-primary;
+  background-color: $color-white;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+
+  i {
+    height: 29px;
+    font-size: 25px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    &.icon-title {
+      top: 8px;
+    }
+    &.icon-embed {
+      top: 6px;
+    }
+    &.icon-header {
+      top: 5px;
+    }
+    &.icon-format-list-bulleted {
+      top: 5px;
+    }
+    &.icon-save {
+      top: 3px;
+    }
+
+  }
+
+  &:hover {
+    @include shadow;
+  }
+
+  &.active {
+    background-color: $color-primary;
+    color: $color-white;
+    border-color: $color-white;
+    @include shadow;
+  }
+
+}

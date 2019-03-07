@@ -1,0 +1,53 @@
+@import "../../../styles/variables";
+
+.movie-card-component {
+  height: 300px;
+  position: relative;
+  background-color: #fff;
+  border: 2px solid #eee;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    border-color: $color-secondary;
+  }
+
+  .poster {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #eee;
+    //background-color: red;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .name {
+    text-align: center;
+    font-weight: bolder;
+    padding: 15px;
+  }
+
+  .footer {
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    text-align: center;
+
+    //border: 1px solid red;
+
+    span {
+      display: inline-block;
+      margin: 0 10px;
+      i {
+        color: $color-primary;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+  }
+
+}

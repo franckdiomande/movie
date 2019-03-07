@@ -1,0 +1,34 @@
+#header-container {
+
+  background-color: #FFFFFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #eee;
+  z-index: 100000;
+
+  #logo {
+
+    position: absolute;
+    width: 50px;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+  }
+
+  #profile {
+
+    width: 50px;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+}
