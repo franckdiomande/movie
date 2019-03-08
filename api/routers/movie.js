@@ -83,7 +83,7 @@ router.post('/:slug/comment', (req, res) => {
                             movie.rating.push(req.body)
                             movie.save()
                             .then(result => {
-                                res.sendStatus(200);
+                                res.sendStatus(201);
                             })
                             .catch(error => {
                                 res.status(400).send(error);
