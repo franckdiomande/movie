@@ -31,9 +31,12 @@ class Api {
 
     login(username, password) {
         return new Promise((resolve, reject) => {
-            return this.post(process.env.REACT_APP_API_BASE_URL + '/login_check', {'username': username, 'password': password})
+            return this.post(process.env.REACT_APP_API_BASE_URL + '/login_check', {
+                    'username': username,
+                    'password': password
+                })
                 .then((data) => {
-                    if(!data['token']){
+                    if (!data['token']) {
                         return reject('User not found!');
                     }
                     let token = data.token;
@@ -47,6 +50,30 @@ class Api {
 
     }
 
+    register(username, password, email) {
+        return new Promise((resolve, reject) => {
+            this.options.method = 'POST';
+            this.options.body = Object.assign({}, this.options.body, {
+                'username': username,
+                'password': password,
+                'email': email
+            });
+            let RequestBody = JSON.stringify(this.options.body);
+
+            fetch(process.env.REACT_APP_API_BASE_URL + '/register', Object.assign({}, this.options, {
+                body: RequestBody
+            })).then((response) => {
+                if (response.status === 201) {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            }).catch((error) => {
+                reject(true)
+            })
+        })
+    }
+
     post(url, body = {}) {
 
         this.options.method = 'POST';
@@ -54,7 +81,9 @@ class Api {
         let RequestBody = JSON.stringify(this.options.body);
 
         return new Promise((resolve, reject) => {
-            fetch(url, Object.assign({}, this.options, {body: RequestBody}))
+            fetch(url, Object.assign({}, this.options, {
+                    body: RequestBody
+                }))
                 .then((response) => {
                     response.json()
                         .then((data) => {
@@ -157,29 +186,26 @@ class Api {
 
     postComment(slug, rating, comment) {
         return new Promise((resolve, reject) => {
-            this.getToken((token) => {
-                this.options.headers.append('Authorization', token);
-
-                this.options.method = 'POST';
-                this.options.body = Object.assign({}, this.options.body, {
-                    'rating': rating,
-                    'content': comment
-                });
-                let RequestBody = JSON.stringify(this.options.body);
-                fetch(process.env.REACT_APP_API_BASE_URL + '/movies/' + slug + '/comment', Object.assign({}, this.options, {
-                    body: RequestBody
-                })).then((response) => {
-                    if(response.status === 200){
-                        resolve()
-                    } else {
-                        reject()
-                    }
-                }).catch((error) => {
-                    reject()
-                })
+            this.options.headers.append('Authorization', this.getToken());
+            this.options.method = 'POST';
+            this.options.body = Object.assign({}, this.options.body, {
+                'rating': rating,
+                'content': comment
+            });
+            let RequestBody = JSON.stringify(this.options.body);
+            fetch(process.env.REACT_APP_API_BASE_URL + '/movies/' + slug + '/comment', Object.assign({}, this.options, {
+                body: RequestBody
+            })).then((response) => {
+                if (response.status === 201) {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            }).catch((error) => {
+                reject(true)
             })
-
         })
+
     }
 
 }

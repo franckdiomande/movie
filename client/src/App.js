@@ -6,6 +6,7 @@ import LoginFormContainer from "./containers/LoginFormContainer/LoginFormContain
 import MovieDetailContainer from "./containers/MovieDetailContainer/MovieDetailContainer";
 import Security from './Security.js';
 import AddMovieContainer from "./containers/AddMovieContainer/AddMovieContainer";
+import { RegisterFormContainer } from './containers/RegisterFormContainer/RegisterFormContainer';
 
 export default class App extends React.Component {
     render() {
@@ -18,7 +19,12 @@ export default class App extends React.Component {
                             <Route exact path="/details" component={MovieDetailContainer}/>
                             <Route exact path="/movies/add" component={AddMovieContainer}/>
                         </Switch>
-                    ) : <LoginFormContainer/>
+                    ) : (
+                        <Switch>
+                            <Route exact path="/login" component={LoginFormContainer}/>
+                            <Route exact path="/register" component={RegisterFormContainer}/>
+                        </Switch>
+                    )
                 }
             </div>
         )

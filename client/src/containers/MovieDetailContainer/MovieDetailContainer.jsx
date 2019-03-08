@@ -37,6 +37,16 @@ class MovieDetailContainer extends React.Component {
             const { activeMovie } = this.props;
             Api.postComment(activeMovie.slug, rating, comment)
                 .then(() => {
+                    activeMovie.rating.push({
+                        rating: rating,
+                        content: comment
+                    });
+                    let sum = 0;
+                    activeMovie.rating.forEach(elem => {
+                        sum += elem.rating;
+                    });
+                    activeMovie.average = sum / activeMovie.rating.length;
+                    this.setState({ comment: "" });
                     this.forceUpdate();
                 })
                 .catch(() => {
@@ -69,9 +79,10 @@ class MovieDetailContainer extends React.Component {
                     />
                     <div>
                         <h4>Rating</h4>
-                        <p>
+                        <div>
                             {activeMovie["average"] ? (
                                 <StarRatingComponent
+                                    name={"average"}
                                     starCount={10}
                                     value={activeMovie.average}
                                     editing={false}
@@ -84,7 +95,7 @@ class MovieDetailContainer extends React.Component {
                                   activeMovie.rating.length +
                                   " reviews"
                                 : "No Average for now"}
-                        </p>
+                        </div>
                         <h4>Summary</h4>
                         <p className={"summary"}>
                             {activeMovie ? activeMovie.summary : "loading..."}
@@ -140,14 +151,18 @@ class MovieDetailContainer extends React.Component {
                             activeMovie["rating"].length > 0
                                 ? activeMovie.rating.map((rating, i) => {
                                       return (
-                                          <li className="reviewCard">
-                                              <p>
+                                          <li
+                                              className="reviewCard"
+                                              key={"review-" + i}
+                                          >
+                                              <div>
                                                   <StarRatingComponent
+                                                      name={"review-" + i}
                                                       starCount={10}
                                                       value={rating.rating}
                                                       editing={false}
                                                   />
-                                              </p>
+                                              </div>
                                               <p>{rating.content}</p>
                                           </li>
                                       );
@@ -160,7 +175,7 @@ class MovieDetailContainer extends React.Component {
                     <h3>Review</h3>
                     <form onSubmit={this.handleSubmit}>
                         <StarRatingComponent
-                            name="rate1"
+                            name="ratingMovie"
                             starCount={10}
                             value={rating}
                             onStarClick={this.onStarClick.bind(this)}
