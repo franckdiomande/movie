@@ -1,14 +1,14 @@
 import './aside-container.scss';
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import FilterComponent from "../../components/FilterComponent/FilterComponent.jsx";
+import FilterContainer from "../FilterContainer/FilterContainer.jsx";
 
 export default class AsideContainer extends React.Component {
   render() {
     return (
         <div className={'_box'} id={'aside-container'}>
             <Switch>
-                <Route exact path="/" component={FilterComponent} />
+                <Route exact path="/" component={FilterContainer} />
             </Switch>
         </div>
     )

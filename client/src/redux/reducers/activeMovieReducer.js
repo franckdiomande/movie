@@ -1,4 +1,4 @@
-import { MOVIE_SELECTED } from "../actions";
+import { MOVIE_SELECTED } from "../actions/selectMovieAction.js";
 
 const activeMovie = (state = {}, action)=>{
     switch (action.type) {

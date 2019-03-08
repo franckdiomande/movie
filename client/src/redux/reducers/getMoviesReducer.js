@@ -1,4 +1,4 @@
-import {FETCH_PRODUCTS_BEGIN, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE} from '../actions/getMoviesAction.js';
+import {FETCH_MOVIES_BEGIN, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_FAILURE} from '../actions/getMoviesAction.js';
 
 const initialState = {
     items: [],
@@ -8,21 +8,21 @@ const initialState = {
 
 export default function getMoviesReducer(state = initialState, action) {
     switch(action.type) {
-        case FETCH_PRODUCTS_BEGIN:
+        case FETCH_MOVIES_BEGIN:
             return {
                 ...state,
                 loading: true,
                 error: null
             };
 
-        case FETCH_PRODUCTS_SUCCESS:
+        case FETCH_MOVIES_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 items: action.payload.movies
             };
 
-        case FETCH_PRODUCTS_FAILURE:
+        case FETCH_MOVIES_FAILURE:
             return {
                 ...state,
                 loading: false,
