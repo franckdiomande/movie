@@ -1,70 +1,38 @@
-export const FETCH_PRODUCTS_BEGIN = 'FETCH_PRODUCTS_BEGIN';
-export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
-export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
-
-let token = localStorage.getItem('token');
-let headers = new Headers();
-headers.append("Accept", "application/json");
-headers.append("Content-Type", "application/json");
-headers.append('Authorization', token);
-
+import Api from '../../Api.js';
+export const FETCH_MOVIES_BEGIN = 'FETCH_MOVIES_BEGIN';
+export const FETCH_MOVIES_SUCCESS = 'FETCH_MOVIES_SUCCESS';
+export const FETCH_MOVIES_FAILURE = 'FETCH_MOVIES_FAILURE';
 
 export function getMovies() {
     return dispatch => {
         dispatch(fetchMoviesBegin());
-        // return Api.getMovies((data)=>{
-        //     dispatch(fetchMoviesSuccess(data));
-        //     return data;
-        // });
-
-        return fetch(process.env.REACT_APP_API_BASE_URL + '/movies', {
-            method: 'GET',
-            headers: headers,
-            mode: 'cors',
-            cache: 'default'
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                if(data.error){
-                    return dispatch(fetchMoviesFailure(data.error))
-                }
+        return Api.getMovies()
+            .then((data)=>{
                 return dispatch(fetchMoviesSuccess(data));
-                // return data;
             })
-            .catch((error) => {
+            .catch((error)=>{
                 return dispatch(fetchMoviesFailure(error))
             });
-
-        // return fetchprocess.env.REACT_APP_API_BASE_URL + '/movies')
-        //     .then(handleErrors)
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         dispatch(fetchMoviesSuccess(json.movies));
-        //         return json.movies;
-        //     })
-        //     .catch(error => dispatch(fetchMoviesFailure(error)));
     };
 }
 
-function handleErrors(response) {
+/*function handleErrors(response) {
     if (!response.ok) {
         throw Error(response.statusText);
     }
     return response;
-}
+}*/
 
 export const fetchMoviesBegin = () => ({
-    type: FETCH_PRODUCTS_BEGIN
+    type: FETCH_MOVIES_BEGIN
 });
 
 export const fetchMoviesSuccess = movies => ({
-    type: FETCH_PRODUCTS_SUCCESS,
+    type: FETCH_MOVIES_SUCCESS,
     payload: {movies}
 });
 
 export const fetchMoviesFailure = error => ({
-    type: FETCH_PRODUCTS_FAILURE,
+    type: FETCH_MOVIES_FAILURE,
     payload: {error}
 });

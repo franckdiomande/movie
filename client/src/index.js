@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
+import {BrowserRouter as Router} from "react-router-dom";
+import {createStore, applyMiddleware, compose} from "redux";
+import {Provider} from "react-redux";
 import rootReducer from "./redux/reducers/index";
 import './styles/base.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createLogger } from "redux-logger";
+import {createLogger} from "redux-logger";
 import thunk from "redux-thunk";
 
 const composeE = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,9 +19,9 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    <Provider store={ store }>
+    <Provider store={store}>
         <Router>
-            <App />
+            <App/>
         </Router>
     </Provider>,
     document.getElementById('root')

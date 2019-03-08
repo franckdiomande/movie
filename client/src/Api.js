@@ -1,92 +1,114 @@
+const fakeData = {
+    "name": "SPIDER-MAN: INTO THE SPIDER-VERSE",
+    "slug": "spider-man-into-the-spider-verse",
+    "summary": "Phil Lord and Christopher Miller, the creative minds behind The Lego Movie and 21 Jump Street, bring their unique talents to a fresh vision of a different Spider-Man Universe, with a groundbreaking visual style that's the first of its kind. Spider-Man: Into the Spider-Verse introduces Brooklyn teen Miles Morales, and the limitless possibilities of the Spider-Verse, where more than one can wear the mask.",
+    "rated": "PG",
+    "release": "2018-12-14T00:00:00.000+00:00",
+    "duration": 100,
+    "genre": ["Action", "Adventure", "Animation", "Kids", "Family", "Science Fiction", "Fantasy"],
+    "directors": ["Bob Persichetti", "Peter Ramsey", "Rodney Rothman"],
+    "writers": ["Phil Lord", "Rodney Rothman"],
+    "actors": ["Shameik Moore", "Jake Johnson (XVI)", "Hailee Steinfeld", "Mahershala Ali", "Brian Tyree Henry", "Lily Tomlin", "Luna Lauren Velez", "Zoë Kravitz", "John Mulaney", "Kimiko Glenn", "Nicolas Cage", "Kathryn Hahn", "Liev Schreiber", "Chris Pine", "Natalie Morales"],
+    "poster": "https://resizing.flixster.com/AUzYMd22VXcm9RNQd9P-TOoxTO0=/fit-in/200x296.2962962962963/v1.bTsxMjg3MjM1MDtqOzE4MDEzOzEyMDA7NjA3Mjs5MDAw",
+    "type": "Movie"
+};
+
+
 class Api {
 
     constructor() {
-        this.headers = new Headers();
-        this.headers.append("Accept", "application/json");
-        this.headers.append("Content-Type", "application/json");
-        /*this.headers = {
-            'Accept': 'application/json, text/plain, *!/!*',
-            'Content-Type': 'application/json',
-        };*/
-
-        this.params = {
+        this.options = {
             method: 'GET',
-            headers: this.headers,
-            mode: 'cors',
-            cache: 'default',
-            body: {}
-        };
-    }
-
-    login(username, password){
-        return new Promise((resolve, reject) => {
-            this.post('http://localhost/login_check', {
-            'username': username,
-            'password': password
-        }, (data)=>{
-            if(data['token']){
-                let token = data.token;
-                window.localStorage.setItem('token', 'Bearer ' + token);
-                resolve(true);
-            } else {
-                reject(false);
-            }
-        });
-        })
-    }
-
-    post(url, body = {}, callback) {
-
-        this.params.method = 'POST';
-        this.params.body =
-            Object.assign({}, this.params.body, body);
-        let RequestBody = JSON.stringify(this.params.body);
-
-        fetch(url, Object.assign({}, this.params, {body: RequestBody})).then((response) => {
-
-            response.json().then((data)=>{
-                return callback(data)
-            });
-        }).catch((error) => {
-
-        })
-    }
-
-    get(url, callback) {
-        this.params.method = 'GET';
-        fetch(url, {
-            method: 'GET',
-            headers: this.headers,
+            headers: new Headers(),
             mode: 'cors',
             cache: 'default'
-        }).then((response) => {
-            response.json().then((data)=>{
-                return callback(data)
-            });
-        }).catch((error) => {
-            console.log(error);
-        })
+        };
+        this.options.headers.append("Accept", "application/json");
+        this.options.headers.append("Content-Type", "application/json");
     }
 
-    getToken(callback){
-        let token = window.localStorage.getItem('token');
-        if (token) {
-            return callback(token);
-        } else {
-            return false;
-        }
+    login(username, password) {
+        return new Promise((resolve, reject) => {
+            return this.post('http://localhost:9080/login_check', {'username': username, 'password': password})
+                .then((data) => {
+                    if(!data['token']){
+                        return reject('User not found!');
+                    }
+                    let token = data.token;
+                    window.localStorage.setItem('token', 'Bearer ' + token);
+                    resolve(true);
+                })
+                .catch((error) => {
+                    return reject(error);
+                });
+        });
     }
 
-    getMovies(callback){
+    post(url, body = {}) {
 
-        this.getToken((token)=>{
-            this.params.headers.append('Authorization', token);
-            return this.get('http://localhost/movies', (data)=>{
-                callback(data);
-            });
-        })
+        this.options.method = 'POST';
+        this.options.body = body;
+        let RequestBody = JSON.stringify(this.options.body);
+
+        return new Promise((resolve, reject) => {
+            fetch(url, Object.assign({}, this.options, {body: RequestBody}))
+                .then((response) => {
+                    response.json()
+                        .then((data) => {
+                            if (data.error) {
+                                return reject(data.error)
+                            }
+                            return resolve(data)
+                        });
+                })
+                .catch((error) => {
+                    return reject(error)
+                })
+        });
+
     }
 
+    get(url) {
+        return new Promise((resolve, reject) => {
+            this.options.method = 'GET';
+            let token = this.getToken();
+            if (!token) {
+                return reject('Token not found!');
+            }
+            this.options.headers.append("Authorization", token);
+            delete this.options.body;
+
+            fetch(url, this.options)
+                .then((response) => {
+                    response.json()
+                        .then((data) => {
+                            if (data.error) {
+                                return reject(data.error)
+                            }
+                            return resolve(data)
+                        });
+                })
+                .catch((error) => {
+                    return reject(error)
+                })
+        });
+    }
+
+    getToken() {
+        return window.localStorage.getItem('token');
+    }
+
+    getMovies() {
+        return new Promise((resolve, reject) => {
+            return this.get('http://localhost:9080/movies').then(resolve).catch(reject);
+        });
+    }
+
+    filterMovies(filters) {
+        return new Promise((resolve, reject) => {
+            return resolve([fakeData]);
+        });
+    }
 
 }
 
