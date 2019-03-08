@@ -21,7 +21,7 @@ export default class FilterComponent extends React.Component {
                         <span>Types</span>
                         <select name="type" id={'select-type-filter'} style={{display: 'none'}} multiple={'multiple'}>
                             <option value="movie">Film</option>
-                            <option value="serie">Serie</option>
+                            <option value="show">Serie</option>
                         </select>
                     </label>
                 </div>

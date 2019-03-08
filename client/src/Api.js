@@ -1,3 +1,4 @@
+require('dotenv').config()
 class Api {
 
     constructor() {
@@ -18,20 +19,20 @@ class Api {
         };
     }
 
-    login(username, password){
+    login(username, password) {
         return new Promise((resolve, reject) => {
-            this.post('http://localhost/login_check', {
-            'username': username,
-            'password': password
-        }, (data)=>{
-            if(data['token']){
-                let token = data.token;
-                window.localStorage.setItem('token', 'Bearer ' + token);
-                resolve(true);
-            } else {
-                reject(false);
-            }
-        });
+            this.post(process.env.REACT_APP_API_BASE_URL + '/login_check', {
+                'username': username,
+                'password': password
+            }, (data) => {
+                if (data['token']) {
+                    let token = data.token;
+                    window.localStorage.setItem('token', 'Bearer ' + token);
+                    resolve(true);
+                } else {
+                    reject(false);
+                }
+            });
         })
     }
 
@@ -42,9 +43,10 @@ class Api {
             Object.assign({}, this.params.body, body);
         let RequestBody = JSON.stringify(this.params.body);
 
-        fetch(url, Object.assign({}, this.params, {body: RequestBody})).then((response) => {
-
-            response.json().then((data)=>{
+        fetch(url, Object.assign({}, this.params, {
+            body: RequestBody
+        })).then((response) => {
+            response.json().then((data) => {
                 return callback(data)
             });
         }).catch((error) => {
@@ -60,7 +62,7 @@ class Api {
             mode: 'cors',
             cache: 'default'
         }).then((response) => {
-            response.json().then((data)=>{
+            response.json().then((data) => {
                 return callback(data)
             });
         }).catch((error) => {
@@ -68,7 +70,7 @@ class Api {
         })
     }
 
-    getToken(callback){
+    getToken(callback) {
         let token = window.localStorage.getItem('token');
         if (token) {
             return callback(token);
@@ -77,13 +79,39 @@ class Api {
         }
     }
 
-    getMovies(callback){
-
-        this.getToken((token)=>{
+    getMovies(callback) {
+        this.getToken((token) => {
             this.params.headers.append('Authorization', token);
-            return this.get('http://localhost/movies', (data)=>{
+            return this.get(process.env.REACT_APP_API_BASE_URL + '/movies', (data) => {
                 callback(data);
             });
+        })
+    }
+
+    postComment(slug, rating, comment) {
+        return new Promise((resolve, reject) => {
+            this.getToken((token) => {
+                this.params.headers.append('Authorization', token);
+
+                this.params.method = 'POST';
+                this.params.body = Object.assign({}, this.params.body, {
+                    'rating': rating,
+                    'content': comment
+                });
+                let RequestBody = JSON.stringify(this.params.body);
+                fetch(process.env.REACT_APP_API_BASE_URL + '/movies/' + slug + '/comment', Object.assign({}, this.params, {
+                    body: RequestBody
+                })).then((response) => {
+                    if(response.status == 200){
+                        resolve()
+                    } else {
+                        reject()
+                    }
+                }).catch((error) => {
+                    reject()
+                })
+            })
+
         })
     }
 
