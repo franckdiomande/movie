@@ -24,40 +24,42 @@ class MovieListContainer extends React.Component {
             return <div>Loading...</div>;
         }
         let movies = this.props.movies;
+
         if (filteredMovies.filterIsActive) {
             movies = filteredMovies.items;
-            for (let i = 0; i < movies.length; i++) {
-                let movie = movies[i];
-                console.log(movie["rating"]);
-                if (movie["rating"] && movie["rating"].length > 0) {
-                    let sum = 0;
-                    movie.rating.forEach(elem => {
-                        sum += elem.rating;
-                    });
-                    movie.average = sum / movie.rating.length;
-                } else {
-                    movie.average = "Not yet"
-                }
-                movies[i] = movie;
-            }
-
-            return (
-                <div className={'_container _container-4'} id={'movie-list-container'}>
-                    {
-                        movies.map((movie, key) => {
-                            return (
-                                <div className={'_box'} key={key}>
-                                    <MovieCardComponent movie={movie} onClick={() => {
-                                        this.props.selectMovie(movie);
-                                        this.props.history.push('/details')
-                                    }}/>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            )
         }
+
+        for (let i = 0; i < movies.length; i++) {
+            let movie = movies[i];
+            console.log(movie["rating"]);
+            if (movie["rating"] && movie["rating"].length > 0) {
+                let sum = 0;
+                movie.rating.forEach(elem => {
+                    sum += elem.rating;
+                });
+                movie.average = sum / movie.rating.length;
+            } else {
+                movie.average = "Not yet"
+            }
+            movies[i] = movie;
+        }
+
+        return (
+            <div className={'_container _container-4'} id={'movie-list-container'}>
+                {
+                    movies.map((movie, key) => {
+                        return (
+                            <div className={'_box'} key={key}>
+                                <MovieCardComponent movie={movie} onClick={() => {
+                                    this.props.selectMovie(movie);
+                                    this.props.history.push('/details')
+                                }}/>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
     }
 }
 

@@ -34,7 +34,7 @@ export default class LoginFormComponent extends React.PureComponent {
                     // window.location.replace('/');
                     this.props.history.push('/')
                 })
-                .catch(() => {
+                .catch((error) => {
                     this.setState({ badCredential: true });
                 });
         }
@@ -76,7 +76,7 @@ export default class LoginFormComponent extends React.PureComponent {
                             <label htmlFor="password" className="_movie-label">Password:</label>
                             <input
                                 id={'password'}
-                                type="text"
+                                type="password"
                                 className="form-control _movie-input"
                                 name="password"
                                 value={password}
