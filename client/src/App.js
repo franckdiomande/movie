@@ -1,19 +1,24 @@
 import React from 'react';
+import {Route, Switch} from "react-router-dom";
 import './App.scss';
-import HeaderContainer from "./containers/HeaderContainer/HeaderContainer.jsx";
-import AsideContainer from "./containers/AsideContainer/AsideContainer.jsx";
-import DisplayContainer from "./containers/DisplayContainer/DisplayContainer.jsx";
+import HomeContainer from "./containers/HomeContainer/HomeContainer";
+import LoginFormContainer from "./containers/LoginFormContainer/LoginFormContainer";
+import MovieDetailContainer from "./containers/MovieDetailContainer/MovieDetailContainer";
+import Security from './Security.js';
 
 export default class App extends React.Component {
-  render() {
-    return (
-        <div id={'app'}>
-          <HeaderContainer/>
-          <div className={'_container _container-2 _no-wrap'} id={'content'}>
-            <AsideContainer/>
-            <DisplayContainer/>
-          </div>
-        </div>
-    )
-  }
+    render() {
+        return (
+            <div id={'app'}>
+                {
+                    Security.isLogged() ? (
+                        <Switch>
+                            <Route exact path="/" component={HomeContainer}/>
+                            <Route exact path="/details" component={MovieDetailContainer}/>
+                        </Switch>
+                    ) : <LoginFormContainer/>
+                }
+            </div>
+        )
+    }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from "react-router";
 import {selectMovie} from "../../redux/actions/selectMovieAction";
 import { getMovies } from "../../redux/actions/getMoviesAction";
 import './movie-list-container.scss';
 import MovieCardComponent from "../../components/MovieCardComponent/MovieCardComponent.jsx";
-import {withRouter} from "react-router";
 
 
 class MovieListContainer extends React.Component {

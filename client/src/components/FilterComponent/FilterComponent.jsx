@@ -48,7 +48,7 @@ export default class FilterComponent extends React.Component {
                 </div>
                 <p style={{textAlign: 'center', marginTop: '200px'}}>
                     <button className="_movie-button-active-widget _text-center" style={{textAlign: 'center'}}
-                            onClick={(e)=>{e.preventDefault(); this.props.filterMovies(this.props.filters, true)}}
+                            onClick={(e)=>{e.preventDefault(); this.props.filterMovies(this.props.filters)}}
                     >
                         Filtrer
                     </button>
