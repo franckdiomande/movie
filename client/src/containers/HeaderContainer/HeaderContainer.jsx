@@ -1,22 +1,30 @@
 import './header-container.scss';
 import React from 'react';
 import SearchComponent from "../../components/SearchComponent/SearchComponent.jsx";
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
+import {withRouter} from "react-router";
+import {connect} from "react-redux";
+import {LoginFormContainer} from "../LoginFormContainer/LoginFormContainer";
 
-export default class HeaderContainer extends React.Component {
-  render() {
-    return (
-      <div id={'header-container'}>
+class HeaderContainer extends React.Component {
+    render() {
+        return (
+            <div id={'header-container'}>
 
-        <img src="../images/logo.svg" alt="Movie app" id={'logo'}/>
+                <img src="../images/logo.svg" alt="Movie app" id={'logo'} onClick={()=>{this.props.history.push('/')}}/>
 
-          <Switch>
-              <Route exact path="/" component={SearchComponent} />
-          </Switch>
+                <img src="../images/video-player.svg" alt="Video player" id={'add-movie'} onClick={()=>{this.props.history.push('/movies/add')}}/>
 
-        <img src="../images/user.png" alt="Movie app" id={'profile'}/>
+                <img src="../images/user.png" alt="Movie app" id={'profile'}/>
 
-      </div>
-    )
-  }
+            </div>
+        )
+    }
 }
+
+
+function mapStateToProps(state) {
+    return {}
+}
+
+export default withRouter(connect(mapStateToProps)(HeaderContainer));

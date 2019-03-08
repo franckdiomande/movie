@@ -24,7 +24,7 @@ class FilterContainer extends React.Component {
 
     render() {
         const { error, loading, genders, actors, directors } = this.props;
-
+        
         if (error) {
             return <div>Error! {error.message}</div>;
         }

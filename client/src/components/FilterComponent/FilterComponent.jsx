@@ -19,15 +19,6 @@ export default class FilterComponent extends React.Component {
                 </div>
                 <div className={'item'}>
                     <label>
-                        <span>Types</span>
-                        <select name="type" id={'select-type-filter'} style={{display: 'none'}} multiple={'multiple'}>
-                            <option value="movie">Movie</option>
-                            <option value="show">Show</option>
-                        </select>
-                    </label>
-                </div>
-                <div className={'item'}>
-                    <label>
                         <span>Acteurs</span>
                         <select name="actor" id={'select-actor-filter'} style={{display: 'none'}} multiple={'multiple'}>
                             {
@@ -46,7 +37,7 @@ export default class FilterComponent extends React.Component {
                         </select>
                     </label>
                 </div>
-                <p style={{textAlign: 'center', marginTop: '200px'}}>
+                <p style={{textAlign: 'center', marginTop: '150px'}}>
                     <button className="_movie-button-active-widget _text-center" style={{textAlign: 'center'}}
                             onClick={(e)=>{e.preventDefault(); this.props.filterMovies(this.props.filters)}}
                     >
@@ -69,15 +60,6 @@ export default class FilterComponent extends React.Component {
         });
         genderFilter.on('unselect', (context)=>{
             this.props.setFilter('genders', context.getSelected());
-        });
-
-        let typeFilter = new Select('#select-type-filter');
-        typeFilter.container.style.zIndex = '1002';
-        typeFilter.on('select', (context)=>{
-            this.props.setFilter('types', context.getSelected());
-        });
-        typeFilter.on('unselect', (context)=>{
-            this.props.setFilter('types', context.getSelected());
         });
 
         let actorFilter = new Select('#select-actor-filter');

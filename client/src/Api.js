@@ -114,6 +114,7 @@ class Api {
                 .then((response) => {
                     response.json()
                         .then((data) => {
+                            console.log('data return');
                             if (data.error) {
                                 return reject(data.error)
                             }
@@ -137,9 +138,50 @@ class Api {
     }
 
     filterMovies(filters) {
+
+        // Filter gender
+        let genders = filters.genders || [];
+        let genderString = null;
+        if(genders[0]){
+            genders = genders.map((gender)=>{return 'genre=' + gender});
+            genderString = genders.join('&');
+        }
+
+        // Filter actor
+        let actors = filters.actors || [];
+        let actorString = null;
+        if(actors[0]){
+            actors = actors.map((actor)=>{return 'actors=' + actor});
+            actorString = actors.join('&');
+        }
+
+        // Filter director
+        let directors = filters.directors || [];
+        let directorString = null;
+        if(directors[0]){
+            directors = directors.map((director)=>{return 'directors=' + director});
+            directorString = directors.join('&');
+        }
+
+        let url = [];
+        if(genderString){
+            url.push(genderString)
+        }
+        if(actorString){
+            url.push(actorString)
+        }
+        if(directorString){
+            url.push(directorString)
+        }
+
+        if(url[0]){
+            url = '?' + url.join('&');
+        }
+
         return new Promise((resolve, reject) => {
-            return resolve([fakeData]);
+            return this.get(process.env.REACT_APP_API_BASE_URL + '/movies' + url).then(resolve).catch(reject);
         });
+
     }
 
     postComment(slug, rating, comment) {
