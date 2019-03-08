@@ -11,8 +11,8 @@ export default class MovieCardComponent extends React.PureComponent {
             <p className={'name'}>{this.props.movie.name}</p>
 
             <div className={'footer'}>
-                <span><i className="material-icons">star</i>{this.props.movie.average}</span>
-                <span><i className="material-icons">comment</i> 30</span>
+                <span><i className="material-icons">star</i>{this.props.movie.average.toFixed(2)}</span>
+                <span><i className="material-icons">comment</i> {this.props.movie.rating.length}</span>
             </div>
 
         </div>

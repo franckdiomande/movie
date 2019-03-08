@@ -144,29 +144,26 @@ class Api {
 
     postComment(slug, rating, comment) {
         return new Promise((resolve, reject) => {
-            this.getToken((token) => {
-                this.options.headers.append('Authorization', token);
-
-                this.options.method = 'POST';
-                this.options.body = Object.assign({}, this.options.body, {
-                    'rating': rating,
-                    'content': comment
-                });
-                let RequestBody = JSON.stringify(this.options.body);
-                fetch(process.env.REACT_APP_API_BASE_URL + '/movies/' + slug + '/comment', Object.assign({}, this.options, {
-                    body: RequestBody
-                })).then((response) => {
-                    if (response.status === 201) {
-                        resolve()
-                    } else {
-                        reject()
-                    }
-                }).catch((error) => {
-                    reject()
-                })
+            this.options.headers.append('Authorization', this.getToken());
+            this.options.method = 'POST';
+            this.options.body = Object.assign({}, this.options.body, {
+                'rating': rating,
+                'content': comment
+            });
+            let RequestBody = JSON.stringify(this.options.body);
+            fetch(process.env.REACT_APP_API_BASE_URL + '/movies/' + slug + '/comment', Object.assign({}, this.options, {
+                body: RequestBody
+            })).then((response) => {
+                if (response.status === 201) {
+                    resolve(true)
+                } else {
+                    reject(false)
+                }
+            }).catch((error) => {
+                reject(true)
             })
-
         })
+
     }
 
 }
