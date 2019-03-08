@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./movie-details-container.scss";
+import StarRatingComponent from "react-star-rating-component";
+import Api from "../../Api";
 
 class MovieDetailContainer extends React.Component {
     constructor(props) {
@@ -9,11 +11,17 @@ class MovieDetailContainer extends React.Component {
         this.state = {
             rating: "",
             comment: "",
-            submitted: false
+            submitted: false,
+            rating: 1,
+            postError: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    onStarClick(nextValue, prevValue, name) {
+        this.setState({ rating: nextValue });
     }
 
     handleChange(e) {
@@ -26,12 +34,24 @@ class MovieDetailContainer extends React.Component {
         this.setState({ submitted: true });
         const { rating, comment } = this.state;
         if (rating && comment) {
+            const { activeMovie } = this.props;
+            Api.postComment(activeMovie.slug, rating, comment)
+                .then(() => {
+                    this.forceUpdate();
+                })
+                .catch(() => {
+                    this.setState({
+                        postError:
+                            "Server Error please retry or contact your admin"
+                    });
+                });
         }
     }
 
     render() {
-		const { activeMovie } = this.props;
-		const { rating, comment, submitted } = this.state;
+        const { activeMovie } = this.props;
+
+        const { rating, comment, submitted, postError } = this.state;
         return (
             <div id={"movie-details-container"}>
                 <div className={"_container _container-4 title"}>
@@ -48,15 +68,36 @@ class MovieDetailContainer extends React.Component {
                         alt=""
                     />
                     <div>
+                        <h4>Rating</h4>
+                        <p>
+                            {activeMovie["average"] ? (
+                                <StarRatingComponent
+                                    starCount={10}
+                                    value={activeMovie.average}
+                                    editing={false}
+                                />
+                            ) : (
+                                ""
+                            )}
+                            {activeMovie["average"]
+                                ? " for " +
+                                  activeMovie.rating.length +
+                                  " reviews"
+                                : "No Average for now"}
+                        </p>
+                        <h4>Summary</h4>
                         <p className={"summary"}>
                             {activeMovie ? activeMovie.summary : "loading..."}
                         </p>
                         <h4>Directors</h4>
                         <ul>
                             {activeMovie["directors"]
-                                ? activeMovie.directors.map(director => {
+                                ? activeMovie.directors.map((director, i) => {
                                       return (
-                                          <li className="pill" key="{director}">
+                                          <li
+                                              className="pill"
+                                              key={"director-" + i}
+                                          >
                                               {director}
                                           </li>
                                       );
@@ -66,9 +107,12 @@ class MovieDetailContainer extends React.Component {
                         <h4>Writers</h4>
                         <ul>
                             {activeMovie["writers"]
-                                ? activeMovie.writers.map(writer => {
+                                ? activeMovie.writers.map((writer, i) => {
                                       return (
-                                          <li className="pill" key="{writer}">
+                                          <li
+                                              className="pill"
+                                              key={"writer-" + i}
+                                          >
                                               {writer}
                                           </li>
                                       );
@@ -78,39 +122,49 @@ class MovieDetailContainer extends React.Component {
                         <h4>Actors</h4>
                         <ul>
                             {activeMovie["actors"]
-                                ? activeMovie.actors.map(actor => {
+                                ? activeMovie.actors.map((actor, i) => {
                                       return (
-                                          <li className="pill" key="{actor}">
+                                          <li
+                                              className="pill"
+                                              key={"actor-" + i}
+                                          >
                                               {actor}
                                           </li>
                                       );
                                   })
                                 : "No actors"}
                         </ul>
+                        <h4>Reviews</h4>
+                        <ul>
+                            {activeMovie["rating"] &&
+                            activeMovie["rating"].length > 0
+                                ? activeMovie.rating.map((rating, i) => {
+                                      return (
+                                          <li className="reviewCard">
+                                              <p>
+                                                  <StarRatingComponent
+                                                      starCount={10}
+                                                      value={rating.rating}
+                                                      editing={false}
+                                                  />
+                                              </p>
+                                              <p>{rating.content}</p>
+                                          </li>
+                                      );
+                                  })
+                                : "No reviews"}
+                        </ul>
                     </div>
                 </div>
                 <div>
                     <h3>Review</h3>
                     <form onSubmit={this.handleSubmit}>
-                        <select
-                            name=""
-                            id=""
-							className="rating"
+                        <StarRatingComponent
+                            name="rate1"
+                            starCount={10}
                             value={rating}
-                            onChange={this.handleChange}
-                        >
-                            <option value="0">0</option>
-                            <option value="0.5">0.5</option>
-                            <option value="1">1</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2">2</option>
-                            <option value="2.5">2.5</option>
-                            <option value="3">3</option>
-                            <option value="3.5">3.5</option>
-                            <option value="4">4</option>
-                            <option value="4.5">4.5</option>
-                            <option value="5">5</option>
-                        </select>
+                            onStarClick={this.onStarClick.bind(this)}
+                        />
                         {submitted && !comment && (
                             <div className="help-block">
                                 Comment is required
@@ -122,13 +176,13 @@ class MovieDetailContainer extends React.Component {
                             cols="30"
                             rows="10"
                             className="commentArea"
+                            name="comment"
                             value={comment}
                             onChange={this.handleChange}
                         />
+                        {postError ? postError : ""}
+                        <button className="submitComment">Submit</button>
                     </form>
-                    <button type="submit" className="submitComment">
-                        Submit
-                    </button>
                 </div>
             </div>
         );

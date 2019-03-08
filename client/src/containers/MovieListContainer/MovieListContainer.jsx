@@ -29,7 +29,20 @@ class MovieListContainer extends React.Component {
             return <div>Loading...</div>;
         }
         
-        console.log(movies);
+        for(let i = 0; i < movies.length; i++){
+            let movie = movies[i];
+            console.log(movie["rating"])
+            if (movie["rating"] && movie["rating"].length > 0) {
+                let sum = 0;
+                movie.rating.forEach(elem => {
+                    sum += elem.rating;
+                });
+                movie.average = sum / movie.rating.length;
+            } else {
+                movie.average = "Not yet"
+            }
+            movies[i] = movie;
+        }
 
         return (
             <div className={'_container _container-4'} id={'movie-list-container'}>

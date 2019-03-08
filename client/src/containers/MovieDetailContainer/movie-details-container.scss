@@ -57,4 +57,13 @@
         transition: all 0.3s;
         float: right;
     }
+
+    .reviewCard {
+        display: inline-block;
+        background-color: white;
+        padding: 5px 10px;
+        font-weight: bold;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
 }
