@@ -25,10 +25,6 @@ class MovieListContainer extends React.Component {
         }
         let movies = this.props.movies;
 
-        if (filteredMovies.filterIsActive) {
-            movies = filteredMovies.items;
-        }
-
         for (let i = 0; i < movies.length; i++) {
             let movie = movies[i];
             console.log(movie["rating"]);
@@ -44,6 +40,10 @@ class MovieListContainer extends React.Component {
             movies[i] = movie;
         }
 
+        if (filteredMovies.filterIsActive) {
+            movies = filteredMovies.items;
+        }
+       
         return (
             <div className={'_container _container-4'} id={'movie-list-container'}>
                 {

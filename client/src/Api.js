@@ -31,7 +31,7 @@ class Api {
 
     login(username, password) {
         return new Promise((resolve, reject) => {
-            return this.post('http://localhost:9080/login_check', {'username': username, 'password': password})
+            return this.post(process.env.REACT_APP_API_BASE_URL + '/login_check', {'username': username, 'password': password})
                 .then((data) => {
                     if(!data['token']){
                         return reject('User not found!');
@@ -103,7 +103,7 @@ class Api {
 
     getMovies() {
         return new Promise((resolve, reject) => {
-            return this.get('http://localhost:9080/movies').then(resolve).catch(reject);
+            return this.get(process.env.REACT_APP_API_BASE_URL + '/movies').then(resolve).catch(reject);
         });
     }
 
