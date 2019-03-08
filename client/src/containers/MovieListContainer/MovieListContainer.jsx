@@ -25,26 +25,26 @@ class MovieListContainer extends React.Component {
         }
         let movies = this.props.movies;
 
-        for (let i = 0; i < movies.length; i++) {
-            let movie = movies[i];
-            if (movie["rating"] && movie["rating"].length > 0) {
-                let sum = 0;
-                movie.rating.forEach(elem => {
-                    sum += elem.rating;
-                });
-                movie.average = sum / movie.rating.length;
-            } else {
-                movie.average = 0;
-            }
-            movies[i] = movie;
-        }
-
         if (filteredMovies.filterIsActive) {
             movies = filteredMovies.items;
         }
 
         if(!movies[0]){
             return (<p>No movies</p>)
+        }
+
+        for (let i = 0; i < movies.length; i++) {
+            let movie = movies[i];
+            movie.average = 0;
+            if (movie["rating"] && movie["rating"].length > 0) {
+                let sum = 0;
+                movie.rating.forEach(elem => {
+                    sum += elem.rating;
+                });
+
+                movie.average = sum / movie.rating.length;
+            }
+            movies[i] = movie;
         }
 
         return (

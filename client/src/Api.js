@@ -114,7 +114,6 @@ class Api {
                 .then((response) => {
                     response.json()
                         .then((data) => {
-                            console.log('data return');
                             if (data.error) {
                                 return reject(data.error)
                             }

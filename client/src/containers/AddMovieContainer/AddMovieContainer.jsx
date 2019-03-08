@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from "react-router";
 import './add-movie-container.scss';
 import HeaderContainer from "../HeaderContainer/HeaderContainer";
+import AddMovieFormComponent from "../../components/AddMovieFormComponent/AddMovieFormComponent";
 
 class AddMovieContainer extends React.Component {
 
@@ -12,7 +13,7 @@ class AddMovieContainer extends React.Component {
             <div>
                 <HeaderContainer/>
                 <div className={'_container _container-2 _no-wrap'} id={'add-movie-container'}>
-                    <h1>Add movie container</h1>
+                    <AddMovieFormComponent/>
                 </div>
             </div>
         )

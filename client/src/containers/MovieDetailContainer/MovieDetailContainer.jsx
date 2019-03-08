@@ -9,7 +9,6 @@ class MovieDetailContainer extends React.Component {
         super(props);
 
         this.state = {
-            rating: "",
             comment: "",
             submitted: false,
             rating: 1,
@@ -47,6 +46,7 @@ class MovieDetailContainer extends React.Component {
                     });
                     activeMovie.average = sum / activeMovie.rating.length;
                     this.setState({ comment: "" });
+                    this.setState({ submitted: false });
                     this.forceUpdate();
                 })
                 .catch(() => {
@@ -186,8 +186,6 @@ class MovieDetailContainer extends React.Component {
                             </div>
                         )}
                         <textarea
-                            name=""
-                            id=""
                             cols="30"
                             rows="10"
                             className="commentArea"

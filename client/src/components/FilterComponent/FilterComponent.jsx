@@ -61,6 +61,10 @@ export default class FilterComponent extends React.Component {
         genderFilter.on('unselect', (context)=>{
             this.props.setFilter('genders', context.getSelected());
         });
+        let item = genderFilter.getItemByIndex(0);
+        genderFilter.unSelectItem(item);
+        genderFilter.Search.this.value = '';
+
 
         let actorFilter = new Select('#select-actor-filter');
         actorFilter.container.style.zIndex = '1001';
@@ -70,6 +74,9 @@ export default class FilterComponent extends React.Component {
         actorFilter.on('unselect', (context)=>{
             this.props.setFilter('actors', context.getSelected());
         });
+        item = actorFilter.getItemByIndex(0);
+        actorFilter.unSelectItem(item);
+        actorFilter.Search.this.value = '';
 
         let directorFilter = new Select('#select-director-filter');
         directorFilter.container.style.zIndex = '1000';
@@ -79,6 +86,9 @@ export default class FilterComponent extends React.Component {
         directorFilter.on('unselect', (context)=>{
             this.props.setFilter('directors', context.getSelected());
         });
+        item = directorFilter.getItemByIndex(0);
+        directorFilter.unSelectItem(item);
+        directorFilter.Search.this.value = '';
 
     }
 }

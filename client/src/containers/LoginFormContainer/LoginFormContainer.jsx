@@ -8,8 +8,6 @@ import {selectMovie} from "../../redux/actions/selectMovieAction";
 
 export class LoginFormContainer extends React.Component {
   render() {
-      console.log('Login form container');
-      console.log(this.props);
     return (
         <div id={'login-form-container'}>
             <LoginFormComponent history={this.props.history}/>
