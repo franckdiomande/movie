@@ -14,6 +14,8 @@ const fakeData = {
 };
 
 
+require('dotenv').config();
+
 class Api {
 
     constructor() {
@@ -42,6 +44,7 @@ class Api {
                     return reject(error);
                 });
         });
+
     }
 
     post(url, body = {}) {
@@ -108,6 +111,33 @@ class Api {
         return new Promise((resolve, reject) => {
             return resolve([fakeData]);
         });
+    }
+
+    postComment(slug, rating, comment) {
+        return new Promise((resolve, reject) => {
+            this.getToken((token) => {
+                this.options.headers.append('Authorization', token);
+
+                this.options.method = 'POST';
+                this.options.body = Object.assign({}, this.options.body, {
+                    'rating': rating,
+                    'content': comment
+                });
+                let RequestBody = JSON.stringify(this.options.body);
+                fetch(process.env.REACT_APP_API_BASE_URL + '/movies/' + slug + '/comment', Object.assign({}, this.options, {
+                    body: RequestBody
+                })).then((response) => {
+                    if(response.status === 200){
+                        resolve()
+                    } else {
+                        reject()
+                    }
+                }).catch((error) => {
+                    reject()
+                })
+            })
+
+        })
     }
 
 }
