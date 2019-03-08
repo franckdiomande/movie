@@ -8,7 +8,16 @@ export default class MovieDetailComponent extends React.Component {
     constructor(props) {
         super(props);
 
+        let { activeMovie } = this.props;
+
+        if(activeMovie){
+            localStorage.setItem('activeMovie', JSON.stringify(activeMovie));
+        }
+
+        activeMovie = JSON.parse(localStorage.getItem('activeMovie'))
+
         this.state = {
+            movie: activeMovie,
             comment: "",
             submitted: false,
             rating: 1,
@@ -31,22 +40,22 @@ export default class MovieDetailComponent extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.setState({ submitted: true });
-        const { rating, comment } = this.state;
+        const { rating, comment, movie } = this.state;
         if (rating && comment) {
-            const { activeMovie } = this.props;
-            Api.postComment(activeMovie.slug, rating, comment)
+            Api.postComment(movie.slug, rating, comment)
                 .then(() => {
-                    activeMovie.rating.push({
+                    movie.rating.push({
                         rating: rating,
                         content: comment
                     });
                     let sum = 0;
-                    activeMovie.rating.forEach(elem => {
+                    movie.rating.forEach(elem => {
                         sum += elem.rating;
                     });
-                    activeMovie.average = sum / activeMovie.rating.length;
+                    movie.average = sum / movie.rating.length;
                     this.setState({ comment: "" });
                     this.setState({ submitted: false });
+                    localStorage.setItem('activeMovie', JSON.stringify(movie));
                     this.forceUpdate();
                 })
                 .catch(() => {
@@ -59,51 +68,49 @@ export default class MovieDetailComponent extends React.Component {
     }
 
     render() {
-        const { activeMovie } = this.props;
-
-        const { rating, comment, submitted, postError } = this.state;
+        const { rating, comment, submitted, postError, movie } = this.state;
         return (
             <div id={"movie-detail-component"}>
                 <div className={"_container _container-4 title"}>
-                    <h1>{activeMovie ? activeMovie.name : "loading..."}</h1>
+                    <h1>{movie ? movie.name : "loading..."}</h1>
                     <p>
-                        {new Date(activeMovie.release).toLocaleDateString()} -{" "}
-                        {activeMovie.rated}
+                        {new Date(movie.release).toLocaleDateString()} -{" "}
+                        {movie.rated}
                     </p>
                 </div>
 
                 <div className={"_container _container-4"}>
                     <img
-                        src={activeMovie ? activeMovie.poster : "loading..."}
+                        src={movie ? movie.poster : "loading..."}
                         alt=""
                     />
                     <div>
                         <h4>Rating</h4>
                         <div>
-                            {activeMovie["average"] ? (
+                            {movie["average"] ? (
                                 <StarRatingComponent
                                     name={"average"}
                                     starCount={10}
-                                    value={activeMovie.average}
+                                    value={movie.average}
                                     editing={false}
                                 />
                             ) : (
                                 ""
                             )}
-                            {activeMovie["average"]
+                            {movie["average"]
                                 ? " for " +
-                                activeMovie.rating.length +
+                                movie.rating.length +
                                 " reviews"
                                 : "No Average for now"}
                         </div>
                         <h4>Summary</h4>
                         <p className={"summary"}>
-                            {activeMovie ? activeMovie.summary : "loading..."}
+                            {movie ? movie.summary : "loading..."}
                         </p>
                         <h4>Directors</h4>
                         <ul>
-                            {activeMovie["directors"]
-                                ? activeMovie.directors.map((director, i) => {
+                            {movie["directors"]
+                                ? movie.directors.map((director, i) => {
                                     return (
                                         <li
                                             className="pill"
@@ -117,8 +124,8 @@ export default class MovieDetailComponent extends React.Component {
                         </ul>
                         <h4>Writers</h4>
                         <ul>
-                            {activeMovie["writers"]
-                                ? activeMovie.writers.map((writer, i) => {
+                            {movie["writers"]
+                                ? movie.writers.map((writer, i) => {
                                     return (
                                         <li
                                             className="pill"
@@ -132,8 +139,8 @@ export default class MovieDetailComponent extends React.Component {
                         </ul>
                         <h4>Actors</h4>
                         <ul>
-                            {activeMovie["actors"]
-                                ? activeMovie.actors.map((actor, i) => {
+                            {movie["actors"]
+                                ? movie.actors.map((actor, i) => {
                                     return (
                                         <li
                                             className="pill"
@@ -147,9 +154,9 @@ export default class MovieDetailComponent extends React.Component {
                         </ul>
                         <h4>Reviews</h4>
                         <ul>
-                            {activeMovie["rating"] &&
-                            activeMovie["rating"].length > 0
-                                ? activeMovie.rating.map((rating, i) => {
+                            {movie["rating"] &&
+                            movie["rating"].length > 0
+                                ? movie.rating.map((rating, i) => {
                                     return (
                                         <li
                                             className="reviewCard"
