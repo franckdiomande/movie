@@ -21,19 +21,19 @@
 
   }
 
-  #profile {
 
+  #add-movie {
+    left: 800px;
+  }
+
+  #logout {
     width: 50px;
-    border-radius: 50%;
     position: absolute;
     right: 15px;
     top: 0;
     bottom: 0;
     margin: auto;
-  }
-
-  #add-movie {
-    left: 800px;
+    cursor: pointer;
   }
 
 }
