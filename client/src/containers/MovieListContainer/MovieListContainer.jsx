@@ -27,7 +27,6 @@ class MovieListContainer extends React.Component {
 
         for (let i = 0; i < movies.length; i++) {
             let movie = movies[i];
-            console.log(movie["rating"]);
             if (movie["rating"] && movie["rating"].length > 0) {
                 let sum = 0;
                 movie.rating.forEach(elem => {
@@ -43,7 +42,11 @@ class MovieListContainer extends React.Component {
         if (filteredMovies.filterIsActive) {
             movies = filteredMovies.items;
         }
-       
+
+        if(!movies[0]){
+            return (<p>No movies</p>)
+        }
+
         return (
             <div className={'_container _container-4'} id={'movie-list-container'}>
                 {

@@ -9,7 +9,7 @@
   border-bottom: 1px solid #eee;
   z-index: 100000;
 
-  #logo {
+  #logo, #add-movie {
 
     position: absolute;
     width: 50px;
@@ -17,6 +17,7 @@
     top: 0;
     bottom: 0;
     margin: auto;
+    cursor: pointer;
 
   }
 
@@ -29,6 +30,10 @@
     top: 0;
     bottom: 0;
     margin: auto;
+  }
+
+  #add-movie {
+    left: 800px;
   }
 
 }
