@@ -35,7 +35,7 @@ class MovieListContainer extends React.Component {
                 });
                 movie.average = sum / movie.rating.length;
             } else {
-                movie.average = "Not yet"
+                movie.average = 0;
             }
             movies[i] = movie;
         }
